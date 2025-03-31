@@ -1,0 +1,124 @@
+/* ========== VARIABLES ========== */
+$container-max-width: 1200px;
+$gutter: 16px;
+$columns: 12;
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+/* ========== CONTAINER ========== */
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $gutter;
+}
+
+/* ========== ROW ========== */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -#{$gutter / 2}; /* Adjust negative margin to balance column padding */
+}
+
+/* ========== COLUMNS ========== */
+@for $i from 1 through $columns {
+  .col-#{$i} {
+    flex: 0 0 calc(100% / #{$columns} * $i);
+    max-width: calc(100% / #{$columns} * $i);
+    padding: $gutter / 2;
+  }
+}
+
+/* ========== RESPONSIVE COLUMNS ========== */
+@each $breakpoint, $size in $breakpoints {
+  @media (max-width: $size) {
+    @for $i from 1 through $columns {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 0 calc(100% / #{$columns} * $i);
+        max-width: calc(100% / #{$columns} * $i);
+      }
+    }
+  }
+}
+
+/* ========== OFFSETS ========== */
+@for $i from 1 through $columns {
+  .offset-#{$i} {
+    margin-left: calc(100% / #{$columns} * $i);
+  }
+}
+
+/* ========== FLEX ALIGNMENTS ========== */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+
+/* Full-height row */
+.row.full-height {
+  height: 100vh;
+}
+
+/* ========== NESTED GRID ========== */
+.row .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -#{$gutter / 2};
+  padding: 0;
+}
+
+.row .col-6, .row .col-4, .row .col-3, .row .col-12 {
+  padding: $gutter / 2;
+}
+
+.row .row {
+  gap: $gutter;
+}
+
+/* ========== RESPONSIVE NESTED GRID ========== */
+@each $breakpoint, $size in $breakpoints {
+  @media (max-width: $size) {
+    .row .col-#{$breakpoint}-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    .row .col-#{$breakpoint}-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+/* ========== NESTED ROW ALIGNMENTS ========== */
+.row .row.justify-start {
+  justify-content: flex-start;
+}
+
+.row .row.justify-center {
+  justify-content: center;
+}
+
+.row .row.justify-end {
+  justify-content: flex-end;
+}
+
+.row .row.align-start {
+  align-items: flex-start;
+}
+
+.row .row.align-center {
+  align-items: center;
+}
+
+.row .row.align-end {
+  align-items: flex-end;
+}
